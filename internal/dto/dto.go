@@ -8,5 +8,10 @@ type CreateProductInput struct {
 type CreateUserInput struct {
 	Name     string `json:"name"`
 	Email    string `json:"email"`
-	Password string `json:"-"`
+	Password string `json:"password"`
+}
+
+type GetJWTInput struct {
+	Email    string `json:"email"`
+	Password string `json:"password"`
 }
