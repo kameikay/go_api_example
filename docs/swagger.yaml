@@ -1,4 +1,31 @@
 basePath: /
+definitions:
+  dto.CreateUserInput:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+    type: object
+  dto.GetJWTInput:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+  dto.GetJWTOutput:
+    properties:
+      access_token:
+        type: string
+    type: object
+  handlers.Error:
+    properties:
+      message:
+        type: string
+    type: object
 info:
   contact:
     name: Victor Kamei Kay
@@ -6,7 +33,61 @@ info:
   termsOfService: http://swagger.io/terms/
   title: API Example
   version: "1.0"
-paths: {}
+paths:
+  /users:
+    post:
+      consumes:
+      - application/json
+      description: Create user
+      parameters:
+      - description: user request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CreateUserInput'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handlers.Error'
+      summary: Create user
+      tags:
+      - users
+  /users/generate_token:
+    post:
+      consumes:
+      - application/json
+      description: Get a user JWT
+      parameters:
+      - description: user request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.GetJWTInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.GetJWTOutput'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handlers.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handlers.Error'
+      summary: Get a user JWT
+      tags:
+      - users
 securityDefinitions:
   ApiKeyAuth:
     in: header
