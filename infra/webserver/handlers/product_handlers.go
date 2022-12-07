@@ -170,6 +170,18 @@ func (h *ProductHandler) UpdateProduct(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNoContent)
 }
 
+// Delete product godoc
+// @Summary 		Delete product
+// @Description Delete product
+// @Tags 				products
+// @Accept 			json
+// @Produce 		json
+// @Param 			id		path		string		true		"product ID" Format(uuid)
+// @Success 		200
+// @Failure 		404		{object}		Error
+// @Failure 		500		{object}		Error
+// @Router 			/products/{id}		[delete]
+// @Security		ApiKeyAuth
 func (h *ProductHandler) DeleteProduct(w http.ResponseWriter, r *http.Request) {
 	id := chi.URLParam(r, "id")
 	if id == "" {
