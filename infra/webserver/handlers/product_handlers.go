@@ -125,6 +125,18 @@ func (h *ProductHandler) GetProduct(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(product)
 }
 
+// Update product godoc
+// @Summary 		Update product
+// @Description Update product
+// @Tags 				products
+// @Accept 			json
+// @Produce 		json
+// @Param 			id		path		string		true		"product ID" Format(uuid)
+// @Param 			request		body		dto.CreateProductInput		true		"product request"
+// @Success 		204
+// @Failure 		500		{object}		Error
+// @Router 			/products/{id}		[put]
+// @Security		ApiKeyAuth
 func (h *ProductHandler) UpdateProduct(w http.ResponseWriter, r *http.Request) {
 	id := chi.URLParam(r, "id")
 	if id == "" {
