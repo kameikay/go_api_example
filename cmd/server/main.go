@@ -7,12 +7,28 @@ import (
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/jwtauth"
 	"github.com/kameikay/api_example/configs"
+	_ "github.com/kameikay/api_example/docs"
 	"github.com/kameikay/api_example/infra/database"
 	"github.com/kameikay/api_example/infra/webserver/handlers"
 	"github.com/kameikay/api_example/internal/entities"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
+
+	httpSwager "github.com/swaggo/http-swagger"
 )
+
+// @title API Example
+// @version 1.0
+// @description Product API with authentication
+// @termsOfService http://swagger.io/terms/
+
+// @contact.name Victor Kamei Kay
+
+// host localhost:8000
+// @BasePath /
+// @securityDefinitions.apikey ApiKeyAuth
+// @in header
+// @name Authorization
 
 func main() {
 	configs, err := configs.LoadConfig(".")
@@ -52,5 +68,6 @@ func main() {
 	r.Post("/users", userHandler.CreateUser)
 	r.Post("/users/generate_token", userHandler.GetJWT)
 
+	r.Get("/docs/*", httpSwager.Handler(httpSwager.URL("http://localhost:8000/docs/doc.json")))
 	http.ListenAndServe(":8000", r)
 }

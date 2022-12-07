@@ -1,0 +1,15 @@
+basePath: /
+info:
+  contact:
+    name: Victor Kamei Kay
+  description: Product API with authentication
+  termsOfService: http://swagger.io/terms/
+  title: API Example
+  version: "1.0"
+paths: {}
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
